@@ -1,9 +1,0 @@
-{
-  "editor.tabSize": 2,
-  "[json]": {   
-      
-  },
-  "ruby.rubocop.executePath": "",
-  "ruby.rubocop.configFilePath": "/path/to/config/.rubocop.yml",
-  "ruby.rubocop.onSave": true
-}
