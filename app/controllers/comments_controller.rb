@@ -7,6 +7,10 @@ class CommentsController < ApplicationController
     if comment.save
       redirect_to article
     else
+      @article = Article.find(params[:article_id])
+      @comment = article.comments
+      @comment = comment
+
       render 'article/show'
     end
   end
