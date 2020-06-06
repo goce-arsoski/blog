@@ -1,0 +1,10 @@
+<div class="container">
+  <div class"columns is-multiline">
+    <div class="column is-5 is-offset-4">
+      <div class="content is-size-3">
+        <h1>Edit <%= @article.title %>'s comment </h1>
+      </div>
+        <%= render 'form', article: @article, comment: @comment, edit: true %>
+    </div>
+  </div>
+</div>

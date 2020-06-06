@@ -1,3 +1,19 @@
+    <% if comment.errors.any? %>
+      <div class="column is-5 is-offset-4">
+        <article class="message is-danger">
+          <div class="message-body">
+            <p><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</p>
+            <br>
+            <p>
+            <% comment.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </p>
+          </div>
+        </article>
+      </div>
+    <% end %>
+
 <div class="column is-5 is-offset-4">
   <article class="media">
     <div class="media-content"> 
@@ -19,6 +35,7 @@
             <div class="level-item">
               <%= form.submit 'Comment', class: 'button is-info' %>
             </div>
+            <%= if local_assigns[:edit] %>
           </div>
         </nav>
       <% end %>
