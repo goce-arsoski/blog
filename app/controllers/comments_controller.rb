@@ -1,17 +1,17 @@
 class CommentsController < ApplicationController
+  def new
+    @article = Article.find(params[:article_id])
+    @comment = @article.comments.build
+  end
+
   def create
-    article = Article.find(params[:article_id])
+    @article = Article.find(params[:article_id])
+    @comment = @article.comments.build(comment_params)
 
-    comment = article.comments.build(comment_params)
-
-    if comment.save
-      redirect_to article
+    if @comment.save
+      redirect_to @article
     else
-      @article = Article.find(params[:article_id])
-      @comment = article.comments
-      @comment = comment
-
-      render 'article/show'
+      render :new
     end
   end
 
