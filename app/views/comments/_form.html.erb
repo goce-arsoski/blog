@@ -33,9 +33,13 @@
           </div>
           <div class="level-right">
             <div class="level-item">
-              <%= form.submit 'Comment', class: 'button is-info' %>
+              <%= form.submit submit_name, class: 'button is-info' %>
             </div>
-            <%= if local_assigns[:edit] %>
+            <% if local_assigns[:edit] %>
+              <div class="level-item">
+                <%= link_to 'Cancel', article_path(article), class: 'button is-link is-light' %>
+              </div>
+            <% end %>
           </div>
         </nav>
       <% end %>
