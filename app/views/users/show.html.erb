@@ -2,12 +2,9 @@
   <div class="columns is-multiline">
     <div class="column is-6 is-offset-3">
       <div class="content is-size-3">
-        <h1><%= @article.title %>
+        <h3><%= @user.name %></h3>
+        <p><%= @user.email %></p>
       </div>
     </div>
-
-    <%= render @article, show: true %>
-
-    <%= render @article.comments %>
   </div>
 </div>
