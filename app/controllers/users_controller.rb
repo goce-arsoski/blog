@@ -1,11 +1,8 @@
 class UsersController < ApplicationController
   def new
-    if logged_in?
-      logged_in_notice
-      redirect_to root_path and return
-    else
-      @user = User.new
-    end
+    session_notice(:warning, 'Already logged in!') if logged_in?
+
+    @user = User.new
   end
 
   def create
