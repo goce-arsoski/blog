@@ -9,15 +9,35 @@ RSpec.describe User do
     end
   end
 
+  describe 'associations' do
+    it { is_expected.to have_many(:articles) }
+    it { is_expected.to have_many(:comments) }
+
+    describe 'dependency' do
+      let(:articles_count) { 1 }
+      let(:comments_count) { 1 }
+      let(:user) { create(:user) }
+
+      it 'destroys comments' do
+        create_list(:comment, comments_count, user: user)
+
+        expect { user.destroy }.to change { Comment.count }.by(-comments_count)
+      end
+
+      it 'destroys articles' do
+        create_list(:article, articles_count, user: user)
+
+        expect { user.destroy }.to change { Article.count }.by(-articles_count)
+      end
+    end
+  end
+
   describe 'validations' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:email) }
     it { is_expected.to validate_presence_of(:password) }
 
     it { is_expected.to have_secure_password }
-
-    it { is_expected.to have_many(:articles) }
-    it { is_expected.to have_many(:comments) }
 
     context 'when matching uniqueness of email' do
       subject { create(:user) }
