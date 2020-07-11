@@ -9,7 +9,7 @@
     <div class="column is-6 is-offset-3">
       <%= form_with url: login_path, scope: :session, local: true do |form| %>   
         <div class="field">
-          <%= form.label :body, class: "label" %>
+          <%= form.label :email, class: "label" %>
           <div class="control">
             <%= form.text_field :email, class: "input", placeholder: 'Your email' %>
           </div>
@@ -24,7 +24,7 @@
 
         <div class="field is-grouped">
           <div class="control">
-            <%= form.submit 'Login', class: "button is-link" %>
+            <%= form.submit 'Log In', class: "button is-link" %>
           </div>
           <div class="control">
             <%= link_to "Cancel", articles_path, class: 'button is-link is-light' %>
