@@ -105,7 +105,6 @@ RSpec.describe "Users" do
       let(:login_user) { create(:user) }
 
       it 'redirect back to root path' do
-        # request_log_in(login_user)
 
         post_params = {
           params: {
