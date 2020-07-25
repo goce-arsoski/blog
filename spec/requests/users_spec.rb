@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Users" do
-  it "creates a User and redirects to the User's page" do
+  it "creates a user and redirects to the user's page" do
     get '/users/signup'
 
     expect(response).to render_template(:new)
@@ -29,7 +29,7 @@ RSpec.describe "Users" do
     expect(response.body).to include("goce_nov@yahoo.com")
   end
 
-  it "render New when User params are empty" do
+  it "render New when user params are empty" do
     get '/users/signup'
 
     post_params = {

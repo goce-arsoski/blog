@@ -7,7 +7,7 @@ RSpec.describe "ArticlesInteraction" do
   before do
     driven_by :rack_test
 
-    log_in(user)
+    system_log_in(user)
     # visit article_path(article)
   end
 

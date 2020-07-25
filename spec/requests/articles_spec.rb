@@ -21,7 +21,7 @@ RSpec.describe "Articles" do
   end
 
   describe 'Editing an article' do
-    context "when the article's User is the same as the logged in User" do
+    context "when the article's user is the same as the logged in user" do
       let(:user) { create(:user) }
       let(:article) { create(:article, user: user) }
 
@@ -29,16 +29,7 @@ RSpec.describe "Articles" do
         get '/login'
         expect(response).to have_http_status(:ok)
 
-        post_params = {
-          params: {
-            session: {
-              email: user.email,
-              password: user.password
-            }
-          }
-        }
-
-        post '/login', post_params
+        log_in(user)
 
         follow_redirect!
         expect(flash[:success]).to eq "Welcome #{user.name} !"
@@ -69,26 +60,15 @@ RSpec.describe "Articles" do
       end
     end
 
-    context "when the article's User is different then the logged in User" do
+    context "when the article's user is different then the logged in user" do
       let(:user) { create(:user) }
       let(:article) { create(:article, user: user) }
 
       let(:login_user) { create(:user) }
 
+      before { log_in(login_user) }
+
       it 'redirect back when GET edit' do
-        get '/login'
-
-        post_params = {
-          params: {
-            session: {
-              email: login_user.email,
-              password: login_user.password
-            }
-          }
-        }
-
-        post '/login', post_params
-
         get "/articles/#{article.id}/edit"
 
         expect(flash[:danger]).to eq 'Wrong User'
@@ -96,19 +76,6 @@ RSpec.describe "Articles" do
       end
 
       it 'redirect back when PATCH edit' do
-        get '/login'
-
-        post_params = {
-          params: {
-            session: {
-              email: login_user.email,
-              password: login_user.password
-            }
-          }
-        }
-
-        post '/login', post_params
-
         patch_params = {
           params: {
             article: {
@@ -128,7 +95,7 @@ RSpec.describe "Articles" do
     context "when no user is logged in" do
       let(:article) { create(:article) }
 
-      it 'redirect back when PATCH edit' do
+      it 'redirect back to root path' do
         get "/articles/#{article.id}/edit"
 
         expect(flash[:danger]).to eq "You must be logged in!"
@@ -154,25 +121,12 @@ RSpec.describe "Articles" do
   end
 
   describe 'Deleting an article' do
-    context "when the article's User is the same as the logged in User" do
+    context "when the article's user is the same as the logged in user" do
       let(:user) { create(:user) }
       let(:article) { create(:article, user: user) }
 
       it 'can delete the article' do
-        get '/login'
-
-        post_params = {
-          params: {
-            session: {
-              email: user.email,
-              password: user.password
-            }
-          }
-        }
-
-        post '/login', post_params
-
-        follow_redirect!
+        log_in(user)
 
         delete "/articles/#{article.id}"
 
@@ -180,27 +134,14 @@ RSpec.describe "Articles" do
       end
     end
 
-    context "when the article's User is different then the logged in User" do
+    context "when the article's user is different then the logged in user" do
       let(:user) { create(:user) }
       let(:article) { create(:article, user: user) }
 
       let(:login_user) { create(:user) }
 
       it 'redirect back to root path' do
-        get '/login'
-
-        post_params = {
-          params: {
-            session: {
-              email: login_user.email,
-              password: login_user.password
-            }
-          }
-        }
-
-        post '/login', post_params
-
-        follow_redirect!
+        log_in(login_user)
 
         delete "/articles/#{article.id}"
 
