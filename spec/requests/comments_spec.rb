@@ -33,7 +33,7 @@ RSpec.describe "Comments" do
 
       before { log_in(user) }
 
-      it 'can not edit different user comments' do
+      it 'cannot edit different user comments' do
         patch_params = {
           params: {
             comment: {
@@ -44,7 +44,7 @@ RSpec.describe "Comments" do
 
         patch article_comment_path(article, comment), patch_params
 
-        expect(response).to redirect_to(login_path)
+        expect(response).to redirect_to(root_path)
         expect(flash[:danger]).to eq 'Wrong User'
       end
 
@@ -66,7 +66,7 @@ RSpec.describe "Comments" do
 
   describe 'Creating an article comment' do
     context 'when no user is signed in' do
-      it 'redirect back when creating new comment' do
+      it "redirect back when creating new comment" do
         post_params = {
           params: {
             comment: {
@@ -128,7 +128,7 @@ RSpec.describe "Comments" do
         expect(response).to redirect_to(article_path(article))
       end
 
-      it 'can not delete different user comment on a different user article' do
+      it 'cannot delete different user comment on a different user article' do
         delete article_comment_path(article, different_comment)
 
         expect(flash[:danger]).to eq 'Wrong User'

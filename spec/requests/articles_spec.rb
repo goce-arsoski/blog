@@ -15,13 +15,13 @@ RSpec.describe "Articles" do
         post '/articles', post_params
 
         expect(response).to redirect_to(login_path)
-        expect(flash[:danger]).to eq 'You must be logged in!'
+        expect(flash[:danger]).to eq 'Please sign in to continue.'
       end
     end
   end
 
   describe 'Editing an article' do
-    context "when the article's user is the same as the logged in user" do
+    context "when the article's user is the same as the logged in User" do
       let(:user) { create(:user) }
       let(:article) { create(:article, user: user) }
 
@@ -60,7 +60,7 @@ RSpec.describe "Articles" do
       end
     end
 
-    context "when the article's user is different then the logged in user" do
+    context "when the article's user is different then the logged in User" do
       let(:user) { create(:user) }
       let(:article) { create(:article, user: user) }
 
@@ -98,8 +98,8 @@ RSpec.describe "Articles" do
       it 'redirect back to root path' do
         get "/articles/#{article.id}/edit"
 
-        expect(flash[:danger]).to eq "You must be logged in!"
-        expect(response).to redirect_to(root_path)
+        expect(flash[:danger]).to eq 'Please sign in to continue.'
+        expect(response).to redirect_to(login_path)
       end
 
       it 'redirect back to root when updating an article' do
@@ -114,14 +114,14 @@ RSpec.describe "Articles" do
 
         patch "/articles/#{article.id}", patch_params
 
-        expect(flash[:danger]).to eq "You must be logged in!"
-        expect(response).to redirect_to(root_path)
+        expect(flash[:danger]).to eq 'Please sign in to continue.'
+        expect(response).to redirect_to(login_path)
       end
     end
   end
 
   describe 'Deleting an article' do
-    context "when the article's user is the same as the logged in user" do
+    context "when the article's user is the same as the logged in User" do
       let(:user) { create(:user) }
       let(:article) { create(:article, user: user) }
 
@@ -134,7 +134,7 @@ RSpec.describe "Articles" do
       end
     end
 
-    context "when the article's user is different then the logged in user" do
+    context "when the article's user is different then the logged in User" do
       let(:user) { create(:user) }
       let(:article) { create(:article, user: user) }
 
@@ -156,8 +156,8 @@ RSpec.describe "Articles" do
       it 'redirect back to root path' do
         delete "/articles/#{article.id}"
 
-        expect(flash[:danger]).to eq 'You must be logged in!'
-        expect(response).to redirect_to(root_path)
+        expect(flash[:danger]).to eq 'Please sign in to continue.'
+        expect(response).to redirect_to(login_path)
       end
     end
   end
