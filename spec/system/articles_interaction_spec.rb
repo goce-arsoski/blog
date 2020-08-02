@@ -76,7 +76,7 @@ RSpec.describe "ArticlesInteraction" do
       click_on 'New Comment'
 
       within('form') do
-        fill_in "comment_body", with: new_comment
+        fill_in 'comment_body', with: new_comment
 
         click_on 'Save'
       end

@@ -7,7 +7,7 @@ RSpec.describe "Comments" do
   describe "Edit article comments" do
     context 'when no user is signed in' do
       it "redirect back to login path" do
-        get edit_article_comment_path(article, comment)
+        get edit_comment_path(article, comment)
 
         expect(response).to redirect_to(login_path)
       end
@@ -21,7 +21,7 @@ RSpec.describe "Comments" do
           }
         }
 
-        patch article_comment_path(article, comment), patch_params
+        patch comment_path(article, comment), patch_params
 
         expect(response).to redirect_to(login_path)
       end
@@ -42,7 +42,7 @@ RSpec.describe "Comments" do
           }
         }
 
-        patch article_comment_path(article, comment), patch_params
+        patch comment_path(comment), patch_params
 
         expect(response).to redirect_to(root_path)
         expect(flash[:danger]).to eq 'Wrong User'
@@ -57,7 +57,7 @@ RSpec.describe "Comments" do
           }
         }
 
-        patch article_comment_path(user_comment.article, user_comment), patch_params
+        patch comment_path(user_comment), patch_params
 
         expect(user_comment.reload.body).to eq 'New Body'
       end
@@ -106,7 +106,7 @@ RSpec.describe "Comments" do
   describe 'Deleting an article comment' do
     context 'when no user is signed in' do
       it "redirect back when deleting a comment" do
-        delete article_comment_path(article, comment)
+        delete comment_path(article, comment)
 
         expect(response).to redirect_to(login_path)
       end
@@ -123,13 +123,13 @@ RSpec.describe "Comments" do
       before { log_in(user) }
 
       it 'can delete its own article comment' do
-        delete article_comment_path(article, comment)
+        delete comment_path(comment)
 
         expect(response).to redirect_to(article_path(article))
       end
 
       it 'cannot delete different user comment on a different user article' do
-        delete article_comment_path(article, different_comment)
+        delete comment_path(different_comment)
 
         expect(flash[:danger]).to eq 'Wrong User'
         expect(response).to redirect_to(root_path)
@@ -138,7 +138,7 @@ RSpec.describe "Comments" do
       it 'can delete different user comments on its own article' do
         article.comments << different_comment
 
-        delete article_comment_path(article, different_comment)
+        delete comment_path(different_comment)
 
         expect(response).to redirect_to(article_path(article))
       end

@@ -11,16 +11,16 @@
       <nav class="level is-mobile">
         <% if equal_with_current_user?(comment.user) %>
           <div class="level-left">
-            <%= link_to edit_article_comment_path(comment.article, comment), class: 'level-item' do %>
+            <%= link_to edit_comment_path(comment), class: 'level-item' do %>
               <span class="icon is-small"><i class="fas fa-edit"></i></span>
             <% end %>
-            <%= link_to article_comment_path(comment.article, comment), method: :delete, class: 'level-item', data: { confirm: 'Are you sure you want to delete this comment?' } do %>
+            <%= link_to comment_path(comment), method: :delete, class: 'level-item', data: { confirm: 'Are you sure you want to delete this comment?' } do %>
               <span class="icon is-small"><i class="fas fa-trash-alt"></i></span>
             <% end %>
           </div>
         <% elsif equal_with_current_user?(comment.article.user) %>
           <div class="level-left">
-            <%= link_to article_comment_path(comment.article, comment), method: :delete, class: 'level-item', data: { confirm: 'Are you sure you want to delete this comment?' } do %>
+            <%= link_to comment_path(comment), method: :delete, class: 'level-item', data: { confirm: 'Are you sure you want to delete this comment?' } do %>
               <span class="icon is-small"><i class="fas fa-trash-alt"></i></span>
             <% end %>
           </div>
